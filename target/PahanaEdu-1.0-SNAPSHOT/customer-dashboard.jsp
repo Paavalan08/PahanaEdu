@@ -574,17 +574,32 @@ purchaseMessage.replace("\"", "\\\"")
 
 
         <section id="helpSection" class="content-section">
-            <h2>Help / FAQ</h2>
-            <div class="help-content glass-effect">
-                <p>Welcome to the help section. Here are some frequently asked questions:</p>
-                <ul>
-                    <li><strong>How to buy items?</strong> Browse the "Available Books" section, enter quantity, and click "Buy". The system will check for stock availability.</li>
-                    <li><strong>How to edit my account?</strong> Go to "My Account" and click "Edit My Account" to update your personal details and password.</li>
-                    <li><strong>Who to contact for support?</strong> For any issues or further assistance, please reach out to our support team at <a href="mailto:support@pahanaedu.lk">support@pahanaedu.lk</a>.</li>
-                </ul>
-                <p>Our team is dedicated to providing you with the best experience.</p>
-            </div>
-        </section>
+    <h2>Help &amp; Frequently Asked Questions</h2>
+    <div class="help-content glass-effect">
+        <p>Welcome to the Pahana Edu Help Center. Here you will find quick answers to common questions and guidance on using our services effectively.</p>
+        
+        <ul>
+            <li>
+                <strong>How do I purchase books?</strong>  
+                Navigate to the <em>"Available Books"</em> section, select your desired quantity, and click <em>"Buy"</em>. The system will automatically verify stock availability before confirming your purchase.
+            </li>
+            
+            <li>
+                <strong>How can I update my account details?</strong>  
+                Go to the <em>"My Account"</em> page and select <em>"Edit My Account"</em>. You can update your personal information, contact details, and password securely.
+            </li>
+            
+            <li>
+                <strong>Who should I contact for support?</strong>  
+                If you require assistance, please email our support team at  
+                <a href="mailto:support@pahanaedu.lk">support@pahanaedu.lk</a>. We aim to respond promptly to all inquiries.
+            </li>
+        </ul>
+
+        <p>We are committed to delivering an exceptional experience and are here to help every step of the way.</p>
+    </div>
+</section>
+
     </main>
 
     <footer>
