@@ -23,7 +23,7 @@
             address = rs.getString("address");
             telephone = rs.getString("telephone");
             password = rs.getString("password");
-            user = rs.getString("username");  // Fetch username (not editable)
+            user = rs.getString("username");  
         }
     } catch (Exception e) {
         out.println("Error: " + e.getMessage());

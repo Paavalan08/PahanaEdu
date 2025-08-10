@@ -514,51 +514,64 @@ purchaseMessage.replace("\"", "\\\"")
             </form>
         </section>
 
-        <section id="myBills" class="content-section">
-            <h2>All Bills</h2>
-            <div class="search-container glass-effect">
-                <input
-                    type="text"
-                    id="billSearchInput"
-                    onkeyup="filterTable('billSearchInput', 'billsTable')"
-                    placeholder="Search for bills by item, Bill ID, or date/time..."
-                    aria-label="Search my bills"
-                />
-                <i class="fas fa-search search-icon"></i>
-            </div>
+       <section id="myBills" class="content-section">
+    <h2>All Bills</h2>
+    <div class="search-container glass-effect">
+        <input
+            type="text"
+            id="billSearchInput"
+            onkeyup="filterTable('billSearchInput', 'billsTable')"
+            placeholder="Search for bills by item, Bill ID, or date/time..."
+            aria-label="Search my bills"
+        />
+        <i class="fas fa-search search-icon"></i>
+    </div>
 
-            <div class="table-container glass-effect">
-                <table id="billsTable">
-                    <thead>
-                        <tr>
-                            <th>Bill ID</th>
-                            <th>Item</th>
-                            <th>Quantity</th>
-                            <th>Total (LKR)</th>
-                            <th>Date &amp; Time</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% if (bills.isEmpty()) { %>
-                        <tr>
-                            <td colspan="5">No bills found.</td>
-                        </tr>
-                        <% } else {
-                            for (Map<String, String> b : bills) {
-                        %>
-                        <tr>
-                            <td><%= b.get("id") %></td>
-                            <td><%= b.get("item") %></td>
-                            <td><%= b.get("qty") %></td>
-                            <td>Rs. <%= b.get("amount") %></td>
-                            <td><%= b.get("date") %></td>
-                        </tr>
-                        <%  }
-                            } %>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+    <div class="table-container glass-effect">
+        <table id="billsTable">
+            <thead>
+                <tr>
+                    <th>Bill ID</th>
+                    <th>Item</th>
+                    <th>Quantity</th>
+                    <th>Total (LKR)</th>
+                    <th>Date &amp; Time</th>
+                    <th>Download</th> <!-- new column -->
+                </tr>
+            </thead>
+            <tbody>
+                <% if (bills.isEmpty()) { %>
+                <tr>
+                    <td colspan="6">No bills found.</td> <!-- colspan updated -->
+                </tr>
+                <% } else {
+                    for (Map<String, String> b : bills) {
+                %>
+                <tr>
+                    <td><%= b.get("id") %></td>
+                    <td><%= b.get("item") %></td>
+                    <td><%= b.get("qty") %></td>
+                    <td>Rs. <%= b.get("amount") %></td>
+                    <td><%= b.get("date") %></td>
+                    <td>
+                        <a 
+                          href="DownloadBillPDFServlet?bill_id=<%= b.get("id") %>" 
+                          class="button"
+                          style="padding: 6px 12px; font-size: 0.85em; border-radius: 6px; background: #3498db; color: white; text-decoration: none;"
+                          target="_blank" 
+                          rel="noopener noreferrer"
+                        >
+                            <i class="fas fa-file-pdf"></i> PDF
+                        </a>
+                    </td>
+                </tr>
+                <%  }
+                   } %>
+            </tbody>
+        </table>
+    </div>
+</section>
+
 
         <section id="helpSection" class="content-section">
             <h2>Help / FAQ</h2>

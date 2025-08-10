@@ -56,7 +56,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 20px;
         }
@@ -73,6 +73,27 @@
         .page-header .header-icon {
             font-size: 0.9em;
             color: var(--accent-teal);
+        }
+
+        .search-box {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .search-box input {
+            padding: 10px 15px;
+            border: 1px solid var(--border-light);
+            border-radius: 50px;
+            font-size: 1em;
+            outline: none;
+            width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent-teal);
+            box-shadow: 0 4px 12px rgba(0, 206, 201, 0.25);
         }
 
         .add-new-button {
@@ -188,59 +209,19 @@
             font-style: italic;
             color: #7f8c8d;
         }
-
-        @media (max-width: 768px) {
-            .container { width: 100%; margin: 20px auto; }
-            .page-header { flex-direction: column; align-items: stretch; }
-            .page-header h2 { font-size: 2em; }
-            .add-new-button { justify-content: center; }
-            table, thead, tbody, th, td, tr { display: block; }
-            table { box-shadow: none; background: none; border-radius: 0; }
-            thead { display: none; }
-            tr {
-                margin: 0 15px 20px 15px;
-                border: 1px solid var(--border-light);
-                border-top: 4px solid var(--accent-teal);
-                border-radius: 10px;
-                background-color: var(--background-content);
-                box-shadow: 0 5px 20px var(--shadow-soft);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-                overflow: hidden;
-            }
-            tr:hover { transform: translateY(-5px); box-shadow: 0 10px 25px var(--shadow-lifted); }
-            td {
-                border: none;
-                border-bottom: 1px solid var(--border-light);
-                position: relative;
-                padding: 15px 20px 15px 45%;
-                text-align: right;
-                font-size: 0.95em;
-            }
-            td:last-child { border-bottom: 0; }
-            td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 20px;
-                width: calc(45% - 30px);
-                text-align: left;
-                font-weight: 600;
-                color: var(--primary-blue-dark);
-            }
-            .action-buttons {
-                justify-content: flex-end;
-                padding: 10px 0;
-            }
-        }
     </style>
 </head>
 <body>
 <main class="container">
     <div class="page-header">
         <h2><i class='bx bxs-package header-icon'></i>Manage Items</h2>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search items...">
+        </div>
         <a href="add-item.jsp" class="add-new-button"><i class='bx bx-plus'></i>Add New Item</a>
     </div>
 
-    <table>
+    <table id="itemsTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -282,5 +263,16 @@
         </tbody>
     </table>
 </main>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function () {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll('#itemsTable tbody tr');
+        rows.forEach(row => {
+            let text = row.innerText.toLowerCase();
+            row.style.display = text.includes(filter) ? '' : 'none';
+        });
+    });
+</script>
 </body>
 </html>

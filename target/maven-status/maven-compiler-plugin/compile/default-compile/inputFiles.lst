@@ -10,6 +10,7 @@
 /home/paavalan/NetBeansProjects/PahanaEdu/src/main/java/com/pahanaedu/servlets/CustomerServlet.java
 /home/paavalan/NetBeansProjects/PahanaEdu/src/main/java/com/pahanaedu/servlets/DeleteBillServlet.java
 /home/paavalan/NetBeansProjects/PahanaEdu/src/main/java/com/pahanaedu/servlets/DeleteCustomerServlet.java
+/home/paavalan/NetBeansProjects/PahanaEdu/src/main/java/com/pahanaedu/servlets/DownloadBillPDFServlet.java
 /home/paavalan/NetBeansProjects/PahanaEdu/src/main/java/com/pahanaedu/servlets/ItemServlet.java
 /home/paavalan/NetBeansProjects/PahanaEdu/src/main/java/com/pahanaedu/servlets/LoginServlet.java
 /home/paavalan/NetBeansProjects/PahanaEdu/src/main/java/com/pahanaedu/servlets/RegisterCustomerServlet.java

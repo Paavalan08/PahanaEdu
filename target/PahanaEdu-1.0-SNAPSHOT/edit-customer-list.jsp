@@ -42,14 +42,14 @@
 
         .container {
             width: 100%;
-            max-width: 1500px; /* Set a max-width for better layout */
+            max-width: 1500px;
             margin: 40px auto;
             padding: 10px;
         }
 
         .page-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
         }
 
         .page-header h2 {
@@ -66,11 +66,36 @@
             color: var(--accent-teal);
         }
 
-        /* NEW: Container for the table to handle scrolling */
+        /* Search bar */
+        .search-container {
+            max-width: 400px;
+            margin: 0 auto 25px auto;
+            display: flex;
+            align-items: center;
+            background: var(--background-content);
+            border-radius: 50px;
+            padding: 8px 15px;
+            box-shadow: 0 5px 20px var(--shadow-soft);
+        }
+
+        .search-container input {
+            flex: 1;
+            border: none;
+            outline: none;
+            font-size: 1em;
+            padding: 8px;
+            background: transparent;
+        }
+
+        .search-container i {
+            color: var(--primary-blue-dark);
+            font-size: 1.2em;
+        }
+
         .table-container {
             width: 100%;
             max-width: 100%;
-            overflow-x: auto; /* This is the key change for horizontal scroll */
+            overflow-x: auto;
             background-color: var(--background-content);
             box-shadow: 0 8px 30px var(--shadow-soft);
             border-radius: 16px;
@@ -79,11 +104,10 @@
         
         table {
             width: 100%;
-            min-width: 900px; /* Enforce a minimum width to trigger the scrollbar */
+            min-width: 900px;
             border-collapse: separate;
             border-spacing: 0;
             background-color: transparent;
-            overflow: hidden;
         }
 
         th, td {
@@ -92,11 +116,11 @@
             border-bottom: 1px solid var(--border-light);
             vertical-align: middle;
             word-break: break-word;
-            white-space: nowrap; /* Prevent wrapping in desktop view */
+            white-space: nowrap; 
         }
         
         th:last-child, td:last-child {
-            white-space: nowrap; /* Keep action buttons from wrapping */
+            white-space: nowrap;
             text-align: right;
         }
 
@@ -107,7 +131,7 @@
             text-transform: uppercase;
             font-size: 0.9em;
             letter-spacing: 0.8px;
-            position: sticky; /* Keep header visible when scrolling */
+            position: sticky;
             top: 0;
             z-index: 10;
         }
@@ -169,33 +193,24 @@
             box-shadow: 0 7px 20px rgba(231, 76, 60, 0.35);
         }
 
-        .no-customers-message, .error-message {
+        .no-customers-message {
             text-align: center;
             padding: 50px;
             font-size: 1.2em;
-        }
-
-        .no-customers-message {
             font-style: italic;
             color: #7f8c8d;
         }
 
         .error-message {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.2em;
             color: var(--gradient-delete-start);
             background-color: rgba(231, 76, 60, 0.05);
             font-weight: 500;
         }
 
         @media (max-width: 768px) {
-            .container { width: 100%; margin: 20px auto; }
-            .table-container { 
-                overflow-x: auto; /* Make sure the scrollbar is active on mobile */
-                box-shadow: none; /* Remove shadow to avoid clipping issues */
-                border-radius: 0;
-            }
-            table {
-                min-width: unset; /* Let the table shrink on mobile */
-            }
             table, thead, tbody, th, td, tr { display: block; }
             thead { display: none; }
             tr {
@@ -213,7 +228,7 @@
                 position: relative;
                 font-size: 0.95em;
                 word-break: break-word;
-                white-space: normal; /* Allow text to wrap on mobile */
+                white-space: normal;
             }
             td::before {
                 content: attr(data-label);
@@ -228,9 +243,6 @@
                 justify-content: flex-end;
                 padding: 10px 0;
             }
-            th:last-child, td:last-child {
-                text-align: right;
-            }
         }
     </style>
 </head>
@@ -240,7 +252,14 @@
             <h2><i class='bx bxs-group'></i>Manage Customers</h2>
         </div>
 
-        <div class="table-container"> <table>
+        <!-- Search Bar -->
+        <div class="search-container">
+            <input type="text" id="customerSearchInput" placeholder="Search customers..." onkeyup="filterCustomers()" />
+            <i class='bx bx-search'></i>
+        </div>
+
+        <div class="table-container">
+            <table id="customersTable">
                 <thead>
                     <tr>
                         <th>Account No</th>
@@ -311,5 +330,29 @@
             </table>
         </div>
     </main>
+
+    <script>
+        function filterCustomers() {
+            let input = document.getElementById("customerSearchInput");
+            let filter = input.value.toLowerCase();
+            let table = document.getElementById("customersTable");
+            let trs = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < trs.length; i++) {
+                let tds = trs[i].getElementsByTagName("td");
+                let match = false;
+                for (let j = 0; j < tds.length - 1; j++) { // skip Action column
+                    if (tds[j]) {
+                        let txtValue = tds[j].textContent || tds[j].innerText;
+                        if (txtValue.toLowerCase().indexOf(filter) > -1) {
+                            match = true;
+                            break;
+                        }
+                    }
+                }
+                trs[i].style.display = match ? "" : "none";
+            }
+        }
+    </script>
 </body>
 </html>

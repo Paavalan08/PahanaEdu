@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
+        /* --- Your existing CSS remains unchanged --- */
         :root {
             --primary-blue-dark: #2c3e50;
             --primary-blue-light: #34495e;
@@ -69,6 +70,39 @@
         .page-header .header-icon {
             font-size: 0.9em;
             color: var(--accent-teal);
+        }
+
+        /* Search box styling */
+        .search-box {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .search-box input {
+            padding: 10px 15px;
+            border-radius: 50px;
+            border: 1px solid var(--border-light);
+            outline: none;
+            font-size: 1em;
+            width: 250px;
+        }
+
+        .search-box button {
+            padding: 10px 20px;
+            background-color: var(--accent-teal);
+            border: none;
+            border-radius: 50px;
+            color: var(--text-light);
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .search-box button:hover {
+            background-color: var(--accent-green);
         }
 
         table {
@@ -169,47 +203,6 @@
             color: #e74c3c;
             font-weight: 600;
         }
-
-        @media (max-width: 768px) {
-            .container { width: 100%; margin: 20px auto; }
-            .page-header { flex-direction: column; align-items: stretch; }
-            .page-header h2 { font-size: 2em; }
-            table, thead, tbody, th, td, tr { display: block; }
-            thead { display: none; }
-            tr {
-                margin: 0 15px 20px 15px;
-                border: 1px solid var(--border-light);
-                border-top: 4px solid var(--accent-teal);
-                border-radius: 10px;
-                background-color: var(--background-content);
-                box-shadow: 0 5px 20px var(--shadow-soft);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-                overflow: hidden;
-            }
-            tr:hover { transform: translateY(-5px); box-shadow: 0 10px 25px var(--shadow-lifted); }
-            td {
-                border: none;
-                border-bottom: 1px solid var(--border-light);
-                position: relative;
-                padding: 15px 20px 15px 45%;
-                text-align: right;
-                font-size: 0.95em;
-            }
-            td:last-child { border-bottom: 0; }
-            td::before {
-                content: attr(data-label);
-                position: absolute;
-                left: 20px;
-                width: calc(45% - 30px);
-                text-align: left;
-                font-weight: 600;
-                color: var(--primary-blue-dark);
-            }
-            .action-buttons {
-                justify-content: flex-end;
-                padding: 10px 0;
-            }
-        }
     </style>
 </head>
 <body>
@@ -217,6 +210,21 @@
 <main class="container">
     <div class="page-header">
         <h2><i class='bx bxs-spreadsheet header-icon'></i>All Billing Records</h2>
+
+        <form method="get" action="" style="display: flex; gap: 10px; align-items: center;">
+    <input type="text" name="search" placeholder="Search by Account Number or Bill ID"
+           value="<%= request.getParameter("search") != null ? request.getParameter("search") : "" %>"
+           style="padding: 10px; border-radius: 8px; border: 1px solid #ccc; flex: 1;">
+
+    <button type="submit" class="button">
+        <i class='bx bx-search'></i> Search
+    </button>
+
+    <button type="button" class="button-delete" onclick="window.location.href='<%= request.getRequestURI() %>';">
+        <i class='bx bx-x'></i> Clear
+    </button>
+</form>
+
     </div>
 
     <table>
@@ -238,13 +246,27 @@
                 ResultSet rs = null;
                 boolean hasRecords = false;
 
+                String search = request.getParameter("search");
+
                 try {
                     conn = DBUtil.getConnection();
                     String sql = "SELECT b.bill_id, c.account_number, b.item_id, b.quantity, b.total_amount, b.bill_date " +
                                  "FROM bill b " +
-                                 "JOIN customer c ON b.customer_id = c.customer_id " +
-                                 "ORDER BY b.bill_date DESC";
+                                 "JOIN customer c ON b.customer_id = c.customer_id ";
+
+                    if (search != null && !search.trim().isEmpty()) {
+                        sql += "WHERE b.bill_id LIKE ? OR c.account_number LIKE ? ";
+                    }
+
+                    sql += "ORDER BY b.bill_date DESC";
+
                     stmt = conn.prepareStatement(sql);
+
+                    if (search != null && !search.trim().isEmpty()) {
+                        stmt.setString(1, "%" + search.trim() + "%");
+                        stmt.setString(2, "%" + search.trim() + "%");
+                    }
+
                     rs = stmt.executeQuery();
 
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
@@ -269,6 +291,7 @@
                     <div class="action-buttons">
                         <a class="button" href="edit-bill.jsp?bill_id=<%= billId %>"><i class='bx bxs-edit-alt'></i>Edit</a>
                         <a class="button-delete" href="DeleteBillServlet?bill_id=<%= billId %>" onclick="return confirm('Are you sure you want to delete bill ID: <%= billId %>?');"><i class='bx bxs-trash-alt'></i>Delete</a>
+                        <a class="button" href="DownloadBillPDFServlet?bill_id=<%= billId %>"><i class='bx bxs-download'></i>Download PDF</a>
                     </div>
                 </td>
             </tr>

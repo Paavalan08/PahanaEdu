@@ -398,16 +398,17 @@ form label i {
 form input[type="text"],
 form input[type="password"],
 form input[type="number"],
+form input[type="email"],
 form select,
 form textarea {
     width: 100%;
     padding: 12px 15px;
     box-sizing: border-box;
-    border: none; /* Remove default border */
-    border-radius: 10px; /* Softer corners */
+    border: none;
+    border-radius: 10px;
     font-size: 1rem;
-    background-color: var(--light-bg); /* Neumorphism base */
-    box-shadow: inset 5px 5px 10px #caceda, inset -5px -5px 10px #f4fcff; /* Inner shadow for depth */
+    background-color: var(--light-bg);
+    box-shadow: inset 5px 5px 10px #caceda, inset -5px -5px 10px #f4fcff;
     transition: all 0.3s ease;
     color: var(--text-color);
 }
@@ -415,12 +416,13 @@ form textarea {
 form input[type="text"]:focus,
 form input[type="password"]:focus,
 form input[type="number"]:focus,
+form input[type="email"]:focus,
 form select:focus,
 form textarea:focus {
-    background-color: #f0f4f8; /* Lighter on focus */
+    background-color: #f0f4f8;
     box-shadow: inset 2px 2px 5px #caceda, inset -2px -2px 5px #f4fcff;
     outline: none;
-    border: 1px solid var(--accent-color); /* Subtle accent border on focus */
+    border: 1px solid var(--accent-color);
 }
 
 /* Buttons */
@@ -433,12 +435,12 @@ button {
     cursor: pointer;
     font-size: 1.05rem;
     font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Springy transition */
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: inline-flex;
     align-items: center;
     gap: 10px;
     margin-right: 15px;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.6); /* Neumorphism shadow */
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1), -4px -4px 8px rgba(255, 255, 255, 0.6);
 }
 
 button:hover {
@@ -449,7 +451,7 @@ button:hover {
 
 button:active {
     transform: translateY(0);
-    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2), inset -2px -2px 5px rgba(255, 255, 255, 0.8); /* Pressed effect */
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2), inset -2px -2px 5px rgba(255, 255, 255, 0.8);
 }
 
 .btn-primary {
@@ -459,7 +461,7 @@ button:active {
 }
 
 .btn-primary:hover {
-    background-color: #5ac4dd;
+    background-color    : #5ac4dd;
     color: white;
 }
 
@@ -503,7 +505,7 @@ button:active {
 /* Dashboard Cards */
 .dashboard-cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
     margin-bottom: 40px;
 }
@@ -515,7 +517,7 @@ button:active {
     border: 1px solid var(--glass-border);
     border-radius: 18px; /* More rounded */
     padding: 25px;
-    box-shadow: 0 8px 30px var(--shadow-dark); /* Deeper shadow for cards */
+    box-shadow: 0 8px 30px var(--shadow-dark);
     display: flex;
     align-items: center;
     gap: 20px;
@@ -527,11 +529,11 @@ button:active {
 .card:hover {
     transform: translateY(-8px);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
-    background: rgba(255, 255, 255, 0.25); /* Slightly more opaque on hover */
+    background: rgba(255, 255, 255, 0.25);
 }
 
 .card-icon {
-    font-size: 3rem; /* Larger icon */
+    font-size: 3rem;
     color: white;
     padding: 18px;
     border-radius: 50%;
@@ -539,7 +541,7 @@ button:active {
     align-items: center;
     justify-content: center;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-    flex-shrink: 0; /* Prevent icon from shrinking */
+    flex-shrink: 0;
 }
 
 .card-content {
@@ -589,7 +591,7 @@ button:active {
 .account-details {
     padding: 30px;
     border-radius: 15px;
-    box-shadow: 0 4px 20px var(--shadow-light); /* Soft shadow */
+    box-shadow: 0 4px 20px var(--shadow-light);
     margin-bottom: 30px;
 }
 
@@ -599,7 +601,7 @@ button:active {
     margin-bottom: 12px;
     padding-left: 15px;
     border-left: 4px solid var(--accent-color);
-    background-color: rgba(255, 255, 255, 0.7); /* Slightly transparent background for each detail line */
+    background-color: rgba(255, 255, 255, 0.7);
     padding-top: 8px;
     padding-bottom: 8px;
     border-radius: 8px;
@@ -628,7 +630,7 @@ button:active {
 }
 
 .help-content ul li {
-    background: rgba(255, 255, 255, 0.7); /* Light background for list items */
+    background: rgba(255, 255, 255, 0.7);
     margin-bottom: 12px;
     padding: 18px;
     border-radius: 10px;
@@ -674,12 +676,11 @@ footer {
     box-shadow: 0 -4px 15px var(--shadow-dark);
     transition: left 0.3s ease, width 0.3s ease;
     z-index: 1100;
-    border-top-left-radius: 15px; /* Match main content radius */
+    border-top-left-radius: 15px;
     border-top-right-radius: 15px;
 }
 
 
-/* Media Queries for Responsiveness */
 @media (max-width: 768px) {
     header {
         padding: 10px 20px;
@@ -734,7 +735,7 @@ footer {
     }
 
     #sidebarToggle:checked ~ main.content {
-        transform: translateX(260px); /* Push content to the right */
+        transform: translateX(260px);
     }
 
     footer {
@@ -744,11 +745,11 @@ footer {
         padding: 10px 15px;
         font-size: 0.8rem;
         border-radius: 0;
-        margin-top: auto; /* Push footer to bottom of main content */
+        margin-top: auto;
     }
 
     .dashboard-cards {
-        grid-template-columns: 1fr; /* Stack cards vertically */
+        grid-template-columns: 1fr;
         gap: 20px;
     }
 
@@ -782,7 +783,7 @@ footer {
 
     td form.buy-form input[type="number"] {
         width: 100%;
-        max-width: 100px; /* Prevent it from being too wide */
+        max-width: 100px;
     }
 
     main.content h2 {
@@ -814,32 +815,5 @@ footer {
         left: 20px;
         font-size: 1rem;
     }
-    .form-group.email {
-    margin-bottom: 20px;
-}
-
-.form-group.email label {
-    font-weight: 600;
-    color: var(--primary-color);
-}
-
-.form-group.email input[type="email"] {
-    width: 100%;
-    padding: 12px 15px;
-    border-radius: 10px;
-    border: none;
-    background-color: var(--light-bg);
-    box-shadow: inset 5px 5px 10px #caceda, inset -5px -5px 10px #f4fcff;
-    font-size: 1rem;
-    color: var(--text-color);
-    transition: all 0.3s ease;
-}
-
-.form-group.email input[type="email"]:focus {
-    background-color: #f0f4f8;
-    border: 1px solid var(--accent-color);
-    outline: none;
-    box-shadow: inset 2px 2px 5px #caceda, inset -2px -2px 5px #f4fcff;
-}
-
+  
 }
